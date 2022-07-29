@@ -77,6 +77,11 @@ namespace API
             {
                 endpoints.MapControllers();
             });
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<BlogContext>();
+                context.Database.Migrate();
+            }
         }
     }
 }
