@@ -26,6 +26,7 @@ namespace Services
         {
             var response = new GenericResponse<object>();
             var blogs = _unitOfWork.Blog.Get()
+                .OrderByDescending(i=>i.CreationDate)
                 .Skip((PageNumber ) * RecordsPerPage).Take(RecordsPerPage)
                 .Select(i => _mapper.Map<BlogItem>(i)).ToList();
             
